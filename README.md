@@ -59,6 +59,7 @@ Now you can edit the commands you want:
 | command  | The text to send to the terminal.                                                                             |
 | auto     | Whether to add a new line to the text being sent, this is normally required to run a command in the terminal. |
 | preserve | Don't dispose of terminal running this command.                                                               |
+| fromRoot | Open the terminal at the workspace root folder instead of the file's directory.                               |
 | name     | Name for the command. A human readable string which is rendered prominent.                                    |
 | group    | Commands sharing the group name will be grouped together in the menu.                                         |
 

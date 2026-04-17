@@ -4,7 +4,8 @@ import { TerminalCommand } from './command';
 let previousTerminal: vscode.Terminal | undefined;
 
 export async function runCommand(command: TerminalCommand, cwd?: string, resource?: string) {
-    const terminal = vscode.window.createTerminal({ cwd: cwd });
+    const effectiveCwd = command.fromRoot ? getWorkspaceRoot(cwd) : cwd;
+    const terminal = vscode.window.createTerminal({ cwd: effectiveCwd });
     terminal.show();
 
     ensureDisposed();
@@ -33,6 +34,16 @@ async function insertVariables(command: string, resource?: string) {
         command: clipboardResult.command,
         successful: resourceResult.successful && clipboardResult.successful
     };
+}
+
+function getWorkspaceRoot(cwd?: string): string | undefined {
+    if (cwd) {
+        const folder = vscode.workspace.getWorkspaceFolder(vscode.Uri.file(cwd));
+        if (folder) {
+            return folder.uri.fsPath;
+        }
+    }
+    return vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
 }
 
 function insertVariable(command: string, variable: string, value?: string) {

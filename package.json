@@ -68,6 +68,10 @@
                   "type": "boolean",
                   "description": "Don't dispose of terminal running this command."
                 },
+                "fromRoot": {
+                  "type": "boolean",
+                  "description": "Open the terminal at the workspace root folder instead of the file's directory."
+                },
                 "name": {
                   "type": "string",
                   "description": "Name for the command. A human readable string which is rendered prominent."

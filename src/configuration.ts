@@ -24,6 +24,7 @@ function sanitizeConfiguration(configuration: any) {
                 command: maybeCommand.command,
                 auto: !!maybeCommand.auto,
                 preserve: !!maybeCommand.preserve,
+                fromRoot: !!maybeCommand.fromRoot,
                 name: notEmptyStringOrUndefined(maybeCommand.name),
                 group: notEmptyStringOrUndefined(maybeCommand.group)
             };
