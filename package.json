@@ -1,6 +1,6 @@
 {
   "name": "terminal-commands-2026",
-  "displayName": "Terminal Commands by FadiZant",
+  "displayName": "Terminal Commands Runner",
   "description": "Run predefined terminal commands from Explorer context menu or Command Palette.",
   "publisher": "fadizant",
   "license": "MIT",
@@ -9,7 +9,7 @@
     "url": "https://github.com/fadizant/RunTerminalCommand.git"
   },
   "icon": "img/icon.png",
-  "version": "1.0.5",
+  "version": "1.0.0",
   "engines": {
     "vscode": "^1.33.0"
   },
@@ -48,7 +48,7 @@
     },
     "configuration": [
       {
-        "title": "Run Terminal Command 2026",
+        "title": "Terminal Commands Runner",
         "properties": {
           "runTerminalCommand.commands": {
             "type": "array",
