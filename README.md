@@ -24,33 +24,37 @@ Now you can edit the commands you want:
 ```json
     "runTerminalCommand.commands": [
         {
-            "command": "ng g c ",
-            "name": "Generate Component"
+            "command": "npm start",
+            "name": "Start Node.JS",
         },
         {
-            "command": "tsc {resource}",
+            "command": "ndb server.js",
+            "auto": true,
+            "group": "Node.JS",
+        },
+        {
+            "command": "nodemon server.js",
+            "name": "Nodemon",
+            "auto": true,
+            "preserve": true,
+            "fromRoot": true,
+            "group": "Node.JS",
+        },
+        {
+            "command": "npm run start:{clipboard}",
+            "name": "Run with environments",
+            "auto": true,
+            "group": "Node.JS",
+        },
+        {
+            "command": "echo {resource}",
             "auto": true
         },
         {
-            "command": "dotnet run",
-            "auto": true,
-            "group": ".NET Core"
+            "command": "echo {#sym:Type something}",
+            "name": "User Input",
+            "auto": true
         },
-        {
-            "command": "dotnet new page -n ",
-            "group": ".NET Core"
-        },
-        {
-            "command": "dotnet watch run",
-            "auto": true,
-            "preserve": true,
-            "group": ".NET Core"
-        },
-        {
-            "command": "dotnet add package {clipboard}",
-            "auto": true,
-            "group": ".NET Core"
-        }
     ]
 ```
 
@@ -67,7 +71,8 @@ Now you can edit the commands you want:
 
 ### Variables
 
-| Variable    | Description               |
-| ----------- | ------------------------- |
-| {resource}  | Name of current resource. |
-| {clipboard} | Clipboard content.        |
+| Variable     | Description                                                                  |
+| ------------ | ---------------------------------------------------------------------------- |
+| {resource}   | Name of current resource.                                                    |
+| {clipboard}  | Clipboard content.                                                           |
+| {#sym:Label} | Prompts the user for input at runtime. `Label` is shown as the input prompt. |

@@ -9,7 +9,7 @@
     "url": "https://github.com/fadizant/RunTerminalCommand.git"
   },
   "icon": "img/icon.png",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "engines": {
     "vscode": "^1.33.0"
   },
@@ -32,6 +32,12 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "keybindings": [
+      {
+        "command": "extension.runTerminalCommand",
+        "key": "ctrl+alt+'"
+      }
+    ],
     "commands": [
       {
         "command": "extension.runTerminalCommand",
@@ -59,7 +65,7 @@
               "properties": {
                 "command": {
                   "type": "string",
-                  "description": "The text to send to the terminal."
+                  "description": "The text to send to the terminal. Use {resource}, {clipboard}, or {#sym:Label} for dynamic values."
                 },
                 "auto": {
                   "type": "boolean",
@@ -85,32 +91,36 @@
             },
             "default": [
               {
-                "command": "ng g c ",
-                "name": "Generate Component"
+                  "command": "npm start",
+                  "name": "Start Node.JS"
               },
               {
-                "command": "tsc {resource}",
-                "auto": true
+                  "command": "ndb server.js",
+                  "auto": true,
+                  "group": "Node.JS"
               },
               {
-                "command": "dotnet run",
-                "auto": true,
-                "group": ".NET Core"
+                  "command": "nodemon server.js",
+                  "name": "Nodemon",
+                  "auto": true,
+                  "preserve": true,
+                  "fromRoot": true,
+                  "group": "Node.JS"
               },
               {
-                "command": "dotnet add page -n ",
-                "group": ".NET Core"
+                  "command": "npm run start:{clipboard}",
+                  "name": "Run with environments",
+                  "auto": true,
+                  "group": "Node.JS"
               },
               {
-                "command": "dotnet watch run",
-                "auto": true,
-                "preserve": true,
-                "group": ".NET Core"
+                  "command": "echo {resource}",
+                  "auto": true
               },
               {
-                "command": "dotnet add package {clipboard}",
-                "auto": true,
-                "group": ".NET Core"
+                  "command": "echo {#sym:Type something}",
+                  "name": "User Input",
+                  "auto": true
               }
             ]
           }

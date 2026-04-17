@@ -29,11 +29,34 @@ function ensureDisposed() {
 async function insertVariables(command: string, resource?: string) {
     const resourceResult = insertVariable(command, 'resource', resource);
     const clipboardResult = insertVariable(resourceResult.command, 'clipboard', await vscode.env.clipboard.readText());
+    const inputResult = await insertUserInputs(clipboardResult.command);
 
     return {
-        command: clipboardResult.command,
-        successful: resourceResult.successful && clipboardResult.successful
+        command: inputResult.command,
+        successful: resourceResult.successful && clipboardResult.successful && inputResult.successful
     };
+}
+
+async function insertUserInputs(command: string): Promise<{ command: string, successful: boolean }> {
+    const pattern = /\{#sym:([^}]+)\}/gi;
+    const matches = [...new Set(Array.from(command.matchAll(pattern)).map(m => m[0]))];
+
+    for (const match of matches) {
+        const label = match.slice(6, -1); // strip {#sym: and }
+        const input = await vscode.window.showInputBox({ prompt: label, placeHolder: label });
+
+        if (input === undefined) {
+            return { command, successful: false };
+        }
+
+        command = command.replace(new RegExp(escapeRegex(match), 'g'), input);
+    }
+
+    return { command, successful: true };
+}
+
+function escapeRegex(str: string): string {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 function getWorkspaceRoot(cwd?: string): string | undefined {
