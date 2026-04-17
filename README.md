@@ -1,4 +1,4 @@
-# Run Terminal Command
+# Run Terminal Command 2026
 
 Run predefined terminal commands from Explorer context menu or Command Palette.
 
@@ -13,7 +13,7 @@ VSCode -> File -> Preferences -> Settings
 
 It will show the list: [Text Editor, Workbench, Window, Features, Application, Extension].
 
-Click on "Extensions", Scroll down and click on "Run Terminal Command" -> Edit in Settings.Json
+Click on "Extensions", Scroll down and click on "Run Terminal Command 2026" -> Edit in Settings.Json
 
 Or just open and edit directly the file:
 ```C:\Users\{YOUR USERNAME}\AppData\Roaming\Code\User\Settings.Json```

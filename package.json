@@ -1,6 +1,6 @@
 {
   "name": "terminal-commands",
-  "displayName": "Run Terminal Command",
+  "displayName": "Run Terminal Command 2026",
   "description": "Run predefined terminal commands from Explorer context menu or Command Palette.",
   "publisher": "adrianwilczynski",
   "repository": {
@@ -47,7 +47,7 @@
     },
     "configuration": [
       {
-        "title": "Run Terminal Command",
+        "title": "Run Terminal Command 2026",
         "properties": {
           "runTerminalCommand.commands": {
             "type": "array",
