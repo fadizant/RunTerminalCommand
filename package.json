@@ -1,8 +1,8 @@
 {
   "name": "terminal-commands-runner",
-  "displayName": "Terminal Commands Runner",
+  "displayName": "Terminal Commands Runner by Fadi Abu Zant",
   "description": "Run predefined terminal commands from Explorer context menu or Command Palette.",
-  "publisher": "Fadi Abuzant",
+  "publisher": "fadizant-extensions",
   "license": "MIT",
   "repository": {
     "type": "git",
