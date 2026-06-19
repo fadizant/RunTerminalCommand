@@ -8,7 +8,7 @@ export function getCommands() {
 function getConfiguration() {
     return vscode.workspace
         .getConfiguration()
-        .get('runTerminalCommand.commands');
+        .get('terminalCommandsRunner.commands');
 }
 
 function sanitizeConfiguration(configuration: any) {

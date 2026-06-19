@@ -5,12 +5,12 @@ import { getEnvironment } from './env';
 import { runCommand } from './terminal';
 
 export function activate(context: vscode.ExtensionContext) {
-	context.subscriptions.push(vscode.commands.registerCommand('extension.runTerminalCommand', runTerminalCommand));
+	context.subscriptions.push(vscode.commands.registerCommand('extension.terminalCommandsRunner', terminalCommandsRunner));
 }
 
 export function deactivate() { }
 
-async function runTerminalCommand(uri: vscode.Uri | undefined) {
+async function terminalCommandsRunner(uri: vscode.Uri | undefined) {
 	const commands = getCommands();
 
 	const pickedCommand = await showCommandsPick(commands);

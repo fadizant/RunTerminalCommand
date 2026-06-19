@@ -1,15 +1,15 @@
 {
-  "name": "terminal-commands-2026",
+  "name": "terminal-commands-runner",
   "displayName": "Terminal Commands Runner",
   "description": "Run predefined terminal commands from Explorer context menu or Command Palette.",
-  "publisher": "fadizant",
+  "publisher": "Fadi Abuzant",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/fadizant/RunTerminalCommand.git"
   },
   "icon": "img/icon.png",
-  "version": "1.0.7",
+  "version": "1.0.0",
   "engines": {
     "vscode": "^1.33.0"
   },
@@ -28,26 +28,26 @@
     "Run"
   ],
   "activationEvents": [
-    "onCommand:extension.runTerminalCommand"
+    "onCommand:extension.terminalCommandsRunner"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "keybindings": [
       {
-        "command": "extension.runTerminalCommand",
+        "command": "extension.terminalCommandsRunner",
         "key": "ctrl+alt+'"
       }
     ],
     "commands": [
       {
-        "command": "extension.runTerminalCommand",
-        "title": "Run Terminal Command..."
+        "command": "extension.terminalCommandsRunner",
+        "title": "Terminal Commands Runner..."
       }
     ],
     "menus": {
       "explorer/context": [
         {
-          "command": "extension.runTerminalCommand",
+          "command": "extension.terminalCommandsRunner",
           "group": "navigation@6"
         }
       ]
@@ -56,7 +56,7 @@
       {
         "title": "Terminal Commands Runner",
         "properties": {
-          "runTerminalCommand.commands": {
+          "terminalCommandsRunner.commands": {
             "type": "array",
             "items": {
               "type": [

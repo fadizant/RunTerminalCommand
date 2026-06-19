@@ -22,7 +22,7 @@ Or just open and edit directly the file:
 Now you can edit the commands you want:
 
 ```json
-    "runTerminalCommand.commands": [
+    "terminalCommandsRunner.commands": [
         {
             "command": "npm start",
             "name": "Start Node.JS",
