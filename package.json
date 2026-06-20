@@ -9,7 +9,7 @@
     "url": "https://github.com/fadizant/RunTerminalCommand.git"
   },
   "icon": "img/icon.png",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "engines": {
     "vscode": "^1.33.0"
   },
@@ -91,41 +91,43 @@
             },
             "default": [
               {
-                  "command": "npm start",
-                  "name": "Start Node.JS"
+                  "command": "node {resource}",
+                  "name": "Run File",
+                  "auto": true
               },
               {
-                  "command": "ndb server.js",
+                  "command": "node --inspect {resource}",
+                  "name": "Debug File",
+                  "auto": true
+              },
+              {
+                  "command": "npm install",
+                  "name": "Install Dependencies",
                   "auto": true,
-                  "group": "Node.JS"
+                  "fromRoot": true,
+                  "group": "npm"
               },
               {
-                  "command": "nodemon server.js",
+                  "command": "npm run {#opt:Choose script:start,build,test,lint}",
+                  "name": "Run Script",
+                  "auto": true,
+                  "fromRoot": true,
+                  "group": "npm"
+              },
+              {
+                  "command": "npm run {#opt:Environment:Development=dev,Production=build,Test=test}",
+                  "name": "Run for Environment",
+                  "auto": true,
+                  "fromRoot": true,
+                  "group": "npm"
+              },
+              {
+                  "command": "nodemon {#sym:Entry point (e.g. server.js)}",
                   "name": "Nodemon",
                   "auto": true,
                   "preserve": true,
                   "fromRoot": true,
-                  "group": "Node.JS"
-              },
-              {
-                  "command": "npm run start:{clipboard}",
-                  "name": "Run with environments",
-                  "auto": true,
-                  "group": "Node.JS"
-              },
-              {
-                  "command": "echo {resource}",
-                  "auto": true
-              },
-              {
-                  "command": "echo {#sym:Type something}",
-                  "name": "User Input",
-                  "auto": true
-              },
-              {
-                  "command": "npm run {#opt:Choose script:start,build,test,lint}",
-                  "name": "NPM Run (pick script)",
-                  "auto": true
+                  "group": "npm"
               }
             ]
           }

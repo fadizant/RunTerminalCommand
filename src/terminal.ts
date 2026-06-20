@@ -64,15 +64,29 @@ async function insertUserOptions(command: string): Promise<{ command: string, su
         const inner = match.slice(6, -1); // strip {#opt: and }
         const colonIdx = inner.indexOf(':');
         const label = inner.slice(0, colonIdx);
-        const options = inner.slice(colonIdx + 1).split(',').map(o => o.trim()).filter(Boolean);
+        const rawOptions = inner.slice(colonIdx + 1).split(',').map(o => o.trim()).filter(Boolean);
 
-        const picked = await vscode.window.showQuickPick(options, { placeHolder: label });
+        const items = rawOptions.map(o => {
+            const eqIdx = o.indexOf('=');
+            if (eqIdx === -1) {
+                return { label: o, value: o };
+            }
+            return { label: o.slice(0, eqIdx).trim(), value: o.slice(eqIdx + 1).trim() };
+        });
+
+        const quickPickItems = items.map(i => ({
+            label: i.label,
+            description: i.value !== i.label ? i.value : undefined,
+            value: i.value
+        }));
+
+        const picked = await vscode.window.showQuickPick(quickPickItems, { placeHolder: label });
 
         if (picked === undefined) {
             return { command, successful: false };
         }
 
-        command = command.replace(new RegExp(escapeRegex(match), 'g'), picked);
+        command = command.replace(new RegExp(escapeRegex(match), 'g'), picked.value);
     }
 
     return { command, successful: true };

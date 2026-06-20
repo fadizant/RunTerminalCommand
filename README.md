@@ -32,42 +32,44 @@ Now you can edit the commands you want:
 ```json
     "terminalCommandsRunner.commands": [
         {
-            "command": "npm start",
-            "name": "Start Node.JS",
+            "command": "node {resource}",
+            "name": "Run File",
+            "auto": true
         },
         {
-            "command": "ndb server.js",
+            "command": "node --inspect {resource}",
+            "name": "Debug File",
+            "auto": true
+        },
+        {
+            "command": "npm install",
+            "name": "Install Dependencies",
             "auto": true,
-            "group": "Node.JS",
+            "fromRoot": true,
+            "group": "npm"
         },
         {
-            "command": "nodemon server.js",
+            "command": "npm run {#opt:Choose script:start,build,test,lint}",
+            "name": "Run Script",
+            "auto": true,
+            "fromRoot": true,
+            "group": "npm"
+        },
+        {
+            "command": "npm run {#opt:Environment:Development=dev,Production=build,Test=test}",
+            "name": "Run for Environment",
+            "auto": true,
+            "fromRoot": true,
+            "group": "npm"
+        },
+        {
+            "command": "nodemon {#sym:Entry point (e.g. server.js)}",
             "name": "Nodemon",
             "auto": true,
             "preserve": true,
             "fromRoot": true,
-            "group": "Node.JS",
-        },
-        {
-            "command": "npm run start:{clipboard}",
-            "name": "Run with environments",
-            "auto": true,
-            "group": "Node.JS",
-        },
-        {
-            "command": "echo {resource}",
-            "auto": true
-        },
-        {
-            "command": "echo {#sym:Type something}",
-            "name": "User Input",
-            "auto": true
-        },
-        {
-            "command": "npm run {#opt:Choose script:start,build,test,lint}",
-            "name": "NPM Run (pick script)",
-            "auto": true
-        },
+            "group": "npm"
+        }
     ]
 ```
 
@@ -84,21 +86,35 @@ Now you can edit the commands you want:
 
 ### Variables
 
-| Variable                          | Description                                                                             |
-| --------------------------------- | --------------------------------------------------------------------------------------- |
-| {resource}                        | Name of current resource.                                                               |
-| {clipboard}                       | Clipboard content.                                                                      |
-| {#sym:Label}                      | Prompts the user for free-text input at runtime. `Label` is shown as the input prompt.  |
-| {#opt:Label:option1,option2,...}  | Shows a dropdown picker at runtime. `Label` is the placeholder, options are comma-separated. |
+| Variable                         | Description                                                                                                                                                                                       |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| {resource}                       | Name of current resource.                                                                                                                                                                         |
+| {clipboard}                      | Clipboard content.                                                                                                                                                                                |
+| {#sym:Label}                     | Prompts the user for free-text input at runtime. `Label` is shown as the input prompt.                                                                                                            |
+| {#opt:Label:option1,option2,...} | Shows a dropdown picker at runtime. `Label` is the placeholder, options are comma-separated. Each option can be `display=value` to show a human-friendly label while inserting a different value. |
 
 #### Dropdown picker example
 
 ```json
 {
-    "command": "npm run {#opt:Choose script:start,build,test,lint}",
-    "name": "NPM Run (pick script)",
-    "auto": true
+  "command": "npm run {#opt:Choose script:start,build,test,lint}",
+  "name": "NPM Run (pick script)",
+  "auto": true
 }
 ```
 
 When this command runs, a dropdown appears with the options `start`, `build`, `test`, and `lint`. The selected value is inserted into the command before it is sent to the terminal.
+
+#### Key/value options example
+
+Options can use `key=value` syntax so the list shows a friendly label while the actual value inserted into the command is different:
+
+```json
+{
+  "command": "kubectl config use-context {#opt:Environment:Production=prod-cluster,Staging=stage-cluster,Local=minikube}",
+  "name": "Switch K8s Context",
+  "auto": true
+}
+```
+
+The dropdown shows `Production`, `Staging`, and `Local`, but inserts `prod-cluster`, `stage-cluster`, or `minikube` respectively. Plain options without `=` continue to work as before.
