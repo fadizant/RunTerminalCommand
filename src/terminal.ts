@@ -30,10 +30,11 @@ async function insertVariables(command: string, resource?: string) {
     const resourceResult = insertVariable(command, 'resource', resource);
     const clipboardResult = insertVariable(resourceResult.command, 'clipboard', await vscode.env.clipboard.readText());
     const inputResult = await insertUserInputs(clipboardResult.command);
+    const optionResult = await insertUserOptions(inputResult.command);
 
     return {
-        command: inputResult.command,
-        successful: resourceResult.successful && clipboardResult.successful && inputResult.successful
+        command: optionResult.command,
+        successful: resourceResult.successful && clipboardResult.successful && inputResult.successful && optionResult.successful
     };
 }
 
@@ -50,6 +51,28 @@ async function insertUserInputs(command: string): Promise<{ command: string, suc
         }
 
         command = command.replace(new RegExp(escapeRegex(match), 'g'), input);
+    }
+
+    return { command, successful: true };
+}
+
+async function insertUserOptions(command: string): Promise<{ command: string, successful: boolean }> {
+    const pattern = /\{#opt:([^:}]+):([^}]+)\}/gi;
+    const matches = [...new Set(Array.from(command.matchAll(pattern)).map(m => m[0]))];
+
+    for (const match of matches) {
+        const inner = match.slice(6, -1); // strip {#opt: and }
+        const colonIdx = inner.indexOf(':');
+        const label = inner.slice(0, colonIdx);
+        const options = inner.slice(colonIdx + 1).split(',').map(o => o.trim()).filter(Boolean);
+
+        const picked = await vscode.window.showQuickPick(options, { placeHolder: label });
+
+        if (picked === undefined) {
+            return { command, successful: false };
+        }
+
+        command = command.replace(new RegExp(escapeRegex(match), 'g'), picked);
     }
 
     return { command, successful: true };

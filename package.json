@@ -9,7 +9,7 @@
     "url": "https://github.com/fadizant/RunTerminalCommand.git"
   },
   "icon": "img/icon.png",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "engines": {
     "vscode": "^1.33.0"
   },
@@ -65,7 +65,7 @@
               "properties": {
                 "command": {
                   "type": "string",
-                  "description": "The text to send to the terminal. Use {resource}, {clipboard}, or {#sym:Label} for dynamic values."
+                  "description": "The text to send to the terminal. Use {resource}, {clipboard}, {#sym:Label} for free-text input, or {#opt:Label:option1,option2} for a dropdown picker."
                 },
                 "auto": {
                   "type": "boolean",
@@ -120,6 +120,11 @@
               {
                   "command": "echo {#sym:Type something}",
                   "name": "User Input",
+                  "auto": true
+              },
+              {
+                  "command": "npm run {#opt:Choose script:start,build,test,lint}",
+                  "name": "NPM Run (pick script)",
                   "auto": true
               }
             ]

@@ -74,5 +74,8 @@ function getPickItems(commands: TerminalCommand[], groups: string[] = []) {
 }
 
 function removeVariables(command: string) {
-    return command.replace(/{\w+}/g, '');
+    return command
+        .replace(/\{#opt:[^}]+\}/g, '')
+        .replace(/\{#sym:[^}]+\}/g, '')
+        .replace(/\{\w+\}/g, '');
 }
