@@ -63,6 +63,11 @@ Now you can edit the commands you want:
             "name": "User Input",
             "auto": true
         },
+        {
+            "command": "npm run {#opt:Choose script:start,build,test,lint}",
+            "name": "NPM Run (pick script)",
+            "auto": true
+        },
     ]
 ```
 
@@ -79,8 +84,21 @@ Now you can edit the commands you want:
 
 ### Variables
 
-| Variable     | Description                                                                  |
-| ------------ | ---------------------------------------------------------------------------- |
-| {resource}   | Name of current resource.                                                    |
-| {clipboard}  | Clipboard content.                                                           |
-| {#sym:Label} | Prompts the user for input at runtime. `Label` is shown as the input prompt. |
+| Variable                          | Description                                                                             |
+| --------------------------------- | --------------------------------------------------------------------------------------- |
+| {resource}                        | Name of current resource.                                                               |
+| {clipboard}                       | Clipboard content.                                                                      |
+| {#sym:Label}                      | Prompts the user for free-text input at runtime. `Label` is shown as the input prompt.  |
+| {#opt:Label:option1,option2,...}  | Shows a dropdown picker at runtime. `Label` is the placeholder, options are comma-separated. |
+
+#### Dropdown picker example
+
+```json
+{
+    "command": "npm run {#opt:Choose script:start,build,test,lint}",
+    "name": "NPM Run (pick script)",
+    "auto": true
+}
+```
+
+When this command runs, a dropdown appears with the options `start`, `build`, `test`, and `lint`. The selected value is inserted into the command before it is sent to the terminal.
